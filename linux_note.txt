@@ -1,0 +1,508 @@
+﻿github.com -> username:cqxcool88
+
+/****************command*********************/
+sudo passwd root
+su root
+himawaripy
+dmesg
+/var/log/messages  //system log position
+cat /var/log/messages | grep 'reboot'
+grep -nr "xxx"
+man 2 syscalls  //look up system calls
+history  //client history used command
+echo $?  //the last function returned value
+ctrl+h   //show hide documents
+ls /dev/sd* 
+ls /sys/bus
+sudo hdparm -t /dev/sdb  //test the xxx speed
+ 
+sudo hexdump -n 1048576 /dev/sdb             //1048576=1024*1024
+sudo dd if=/dev/zero of=/dev/sdb count=2000  //block=512b 512*2000=1M
+sudo dd if=~/linux/uboot/u-boot-2015.04/image.bin of=/dev/sdb seek=1
+sudo mkfs.vfat /dev/sdb1  //fat
+sudo mkfs.ext3 /dev/sdb2 
+
+sudo dd if=/dev/zero of=/dev/sdb count=20000
+sudo dd if=/home/cqxcool/linux/uboot/u-boot-2015.04_abcamus/bootloader-for-Exynos-4412/image.bin of=/dev/sdb seek=1  //uboot
+sudo dd if=/home/cqxcool/linux/kernel/linux-3.8.1/arch/arm/boot/dts/exynos4412-smdk4412.dtb of=/dev/sdb seek=2048    //dtb
+sudo dd if=/home/cqxcool/linux/kernel/linux-3.8.1/arch/arm/boot/uImage of=/dev/sdb seek=4096		                 //image
+sudo dd if=/home/cqxcool/linux/kernel/linux-3.8.1/ramdisk.img of=/dev/sdb seek=16384	                             //ramdisk
+
+sudo hexdump -n 10240000 /dev/sdb
+mmc read 40007000 1000 3000  	//kernel
+md.b 0x40007000 100 		//display 100 bytes memory start:0x40007000
+mmc read 41000000 800 a0        //dtb
+md.b 0x41000000 100
+mmc read 42000000 4000 2000     //ramdisk
+bootm 40007000 - 41000000
+bootm 40007000 42000000 41000000
+
+sudo dd if=/home/cqxcool/linux/uboot/u-boot-2015.04_abcamus/bootloader-for-Exynos-4412/ramdisk-uboot.img of=/dev/sdb seek=16384
+sudo LOADADDR=0x40008000 make uImage -j4
+sudo apt-get install libssl-dev
+
+rpm -ivh your-package.rpm
+sudo dpkg -i package_file.deb 
+sudo dpkg -r package_name 
+
+sdfuse flash bootloader u-boot-iTop-4412.bin
+sudo fastboot flash bootloader u-boot-fs4412.bin
+sudo fastboot flash bootloader u-boot-iTOP-4412.bin
+
+make menuconfig:
+apt-get install libncurses5-dev
+make:
+apt-get install lib32ncurses5 lib32z1
+make_ext4fs:
+sudo apt install android-tools-fsutils
+libstdc++.so.6:err:
+sudo apt-get install lib32stdc++6
+
+
+apt-cache search libc6-dev
+suo apt-get install libc6-dev
+dpkg -L libc6-dev | grep types.h
+
+rootfs:vitual rootfs -> real rootfs
+
+/****************uboot*********************/
+git clone https://github.com/abcamus/bootloader-for-Exynos-4412
+dd if=/dev/zero of=env.bin bs=1k count=8
+
+arch/arm/cpu/armv7/start.S -> lowlevel_init.S
+arch/arm/lib/crt0.S(_mian)
+arch/arm/cpu/armv7/exynos/spl_boot.c(board_init_f)
+arch/arm/lib/board.c(board_init_r(replace))
+debug:include/common.h
+common/board_f.c->board_init_f
+/include/configs/landrover.h
+
+/****************bochs*********************/
+sudo apt-get install bochs
+sudo apt-get install bochs-x
+bximage
+dd if=/home/cqxcool/Downloads/bootroot-0.11 of=a.img 
+
+/****************device tree*********************/
+make dtbs
+
+/****************kernel*********************/
+arch/arm/mach-exynos -> mach-exynos4-dt.c
+arch/arm/tools -> mach-types
+struct device:include/linux/device.h
+
+/****************gcc*********************/
+gcc -v  //peek the version
+gcc xxx.c -o xxx
+
+/****************c++*********************/
+g++ xxx.cpp -o xxx
+
+/****************disk*********************/
+fdisk //report file system disk space usage  examp:sudo fdisk /dev/sdb
+df    //report file system disk space usage
+
+/****************kernel*********************/
+make zImage
+make mrproper  //fist time compiler
+make exynos4_deconfig  //arch/arm/configs
+
+/****************internet*********************/
+sudo ifconfig enp1s0 192.168.1.10 netmask 255.255.255.0 up
+sudo route add default gw 192.168.1.1 enp1s0
+
+make menuconfig
+    Device Drivers  --->
+        Network device support  --->
+            USB Network Adapters  --->
+                Davicom DM96xx based USB 10/100 ethernet devices
+
+/****************proc*********************/
+/proc  //a file system:the kernel and module will send messages to this precess
+cat /proc/cpuinfo
+cat /proc/interrupts
+cat /proc/devices
+cat /proc/diskstats
+cat /proc/dma
+cat /proc/filesystems
+cat /proc/iomem
+cat /proc/ioports
+cat /proc/mounts
+cat /proc/modules
+cat /proc/stat  //start infomation
+cat /proc/version
+
+/****************vim*********************/
+//should add in /etc/vim/vimrc
+set ts=4  //ts:tabstop
+set expandtab
+sudo apt-get install vim-gnome  //ubuntu system clipboard support
+ctrl+alt+t    //new terminal
+ctrl+shift+t  //new terminal
+vim xxx  //file name
+q!       //quit with not save
+w        //save without quit
+wq       //quit with save
+set nu   //display line number
+set nonu //cancel display line number
+q:       //enter command model
+u        //cancel last amend
+:reg     //register
+y        //yank:copy
+yy       //copy all line
+yw       //copy word
+d        //cut
+p        //paste after cursor
+“+y      //yank to system clipboard
+“+p      //past from system clipboard
+"+gp     //past after curser
+“+d      //system clipboad
+[        //last block
+]        //next block
+shift + "*"  //hlight word & look down
+shift + "#"  //hlight word & look up
+g+d      //hlight word
+shift+^  //jump to line header
+shift+$  //jump to line end
+xx%      //jump to xx%
+ctrl+g   //display current position
+ctrl+f   //next page
+ctrl+b   //up page
+ctrl+]   //entry the function
+ctrl+t   //return last function
+ctrl+i   //jump to forward cursor
+ctrl+o   //jump to backward cursor
+Ctrl+e   //down one line
+Ctrl+y   //up one line
+Ctrl+d   //down half screen
+Ctrl+u   //up half screen
+u        //Undo
+Ctrl+r   //Redo
+ra       //replaced as a 
+s/old/new/   //use new replace old,current line fist match
+s/old/new/g  //use new replace old,current line all match
+%s/old/new/ 用old替换new，替换所有行的第一个匹配
+%s/old/new/g 用old替换new，替换整个文件的所有匹配
+%s/old/new/  //use new replace old,all lines fist match
+进入vi后使用ctrl+x然后再ctrl+o来补全代码！！
+使用ctrl+n 或 ctrl+p直接进行代码补全（更方便）！！！
+syntax on  //highlight
+%s/old/new/g //use new replace old,current file all match
+
+nmap <c-v> "+gp  
+nmap <c-c> "+y 
+nmap <leader>v "+gp  
+nmap <leader>c "+y
+let mapleader=","  
+
+/**taglist**/
+Tlist
+
+/***new window***/
+:vsp      //new window
+ctrl+w+h  //left
+ctrl+w+l  //right
+ctrl+w+c  //close the window
+
+/***new page***/
+:Te :Texplorer  //new page
+gt              //next page
+gT              //last page
+gt -x           //xpage
+:tabs           //state
+:tabclose [i]   //close page
+:tabonly        //leave only this page 
+
+/**insert model**/
+"word"+ctrl+n     //complete the remaind words
+catl+p  //return
+Ctrl + X 和 Ctrl + D 宏定义补齐
+Ctrl + X 和 Ctrl + ] 是Tag 补齐
+Ctrl + X 和 Ctrl + F 是文件名 补齐
+Ctrl + X 和 Ctrl + I 也是关键词补齐，但是关键后会有个文件名，告诉你这个关键词在哪个文件中
+Ctrl + X 和 Ctrl +V 是表达式补齐
+Ctrl + X 和 Ctrl +L 这可以对整个行补齐
+
+/**addon**/
+sudo apt-get install vim-addon-manager
+sudo apt-get install vim-scripts
+
+/****************escope*********************/
+cscope -Rbkq  //buid lib
+
+//should add in /etc/vim/vimrc
+if has("cscope")  
+  set csprg=/usr/bin/cscope  
+  set csto=0  
+  set cst  
+  set csverb  
+  set cspc=3  
+  set csprg=/usr/bin/cscope  
+  set csto=0  
+  set cst  
+  set csverb  
+  set cspc=3  
+  "add any database in current dir  
+  if filereadable("cscope.out")  
+     cs add cscope.out  
+  "else search cscope.out elsewhere  
+  else  
+      let cscope_file=findfile("cscope.out", ".;")  
+      let cscope_pre=matchstr(cscope_file, ".*/")  
+      if !empty(cscope_file) && filereadable(cscope_file)  
+         exe "cs add" cscope_file cscope_pre  
+      endif    
+  endif  
+endif
+
+/****************ctags*********************/
+ctags -R
+cp ./doc/taglist.txt  /usr/share/vim/vim72/doc/
+cp ./plugin/taglist.vim  /usr/share/vim/vim72/plugin/
+:Tlist
+:TlistOpen
+:TlistClose
+http://vim-taglist.sourceforge.net/manual.html
+http://http://www.vim.org/scripts/script.php?script_id=273
+http://sourceforge.net/projects/vim-taglist/files/vim-taglist/
+
+/****************terminal*********************/
+ctrl+alt+t      //new terminal
+ctrl+shift+t    //new windon in terminal
+alt+x           //jump to x windon
+
+/****************usart*********************/
+ls -l /dev/ttyS*                //look up usart name
+cat /proc/tty/drivers           //look up current tty direver
+cat /proc/tty/drivers/serial    //look up usart drivers/serial
+dmesg | grep ttyS*              //look up usart device
+tree /sys/class/tty/ttty*       //registered with the core
+
+/****************itop4412*********************/
+gcc hello.c -Wall  //display all warming
+arm-none-linux-gnueabi-gcc -o xxx xxx.c -static  //compile xxx
+make_ext4fs -s -l 314572800 -a root -L linux system.img xxx  //filename
+make_ext4fs -s -l 314572800 -a root -L linux system.img system
+
+hyper terminal:fastboot
+windows:
+fastboot.exe flash bootloader u-boot-iTOP-4412.bin
+fastboot.exe flash kernel zImage
+fastboot.exe flash ramdisk ramdisk-uboot.img
+fastboot.exe flash system system.img
+linux:
+sudo fastboot flash bootloader u-boot-iTOP-4412.bin
+sudo fastboot flash kernel zImage	
+sudo fastboot flash ramdisk ramdisk-uboot.img
+sudo fastboot flash system system.img
+
+sudo fastboot -w  // erase userdata and cache 
+sudo fastboot reboot
+
+fastboot flash {partition} {*.img}
+
+emmc:
+sdfuse flashall
+sdfuse flash bootloader u-boot-iTOP-4412.bin
+sdfuse flash kernel zImage
+sdfuse flash ramdisk ramdisk-uboot.img
+sdfuse flash system system.img
+
+sudo apt-get install libncurses5-dev
+arm-linux-gcc -v
+
+sudo apt-get install wine 
+gnome-session-quit
+
+/**************tar**************/
+tar -vxf xxx.tar.gz
+tar -vcf xxx.tar.gz xxx/
+unzip filename.zip 
+zip filename.zip files
+
+gnome-session-quit
+
+/**************minicom**************/
+sudo apt-get install minicom
+ls -l /dev/ttyUSB*
+sudo minicom -s     //config minicom
+sudo minicom        //entry the mimicom
+dmesg
+dmesg | grep ttyUSB
+ctrl-A + Z:help
+ctrl-A + C:clear screen
+ctrl-A + O:setting
+ctrl-A + S:send file
+ctrl-A + Q:quit
+
+/**************ardupilot**************/
+sudo gedit /etc/bash.bashrc
+sudo vim /etc/bash.bashrc
+arm-none-eabi-gcc -v
+make px4-v2
+make px4-v2-upload
+make px4-clean
+gnome-session-quit
+sudo apt-get install python-pip
+sudo apt-get install python-empy
+sudo pip install catkin_pkg
+genromfs ->usr/sbin
+
+/****************git *********************/
+git init                 //init
+git add .                //add all files
+git commit -m "comment"
+git status
+git log                  //
+git reflog               //look up history version
+git reset --hard xxx     //xxx is head index
+git reset --hard HEAD~100  //back to 100 version 
+git checkout master      //switch to master branch
+git checkout -b xxx      //create xxx branch
+git checkout -- <filename>
+git rm
+git mv
+git pull                 //update
+git config --global user.name "xxx"
+git config --global user.email "xxx"
+git remote -v  //look up remote server address and name --verbose 
+git remote add origin https://github.com/tugenhua0707 	//establish local and remote connention
+git push origin master  //push local master to remote origin master
+
+git add xxx
+git diff xxx
+git reset –hard HEAD^   //back to the last version
+cat xxx 
+git checkout xxx  //switch to xxxbranch
+git rm xxx  //remove xxx 
+git checkout master  //switch to master branch
+git checkout -b xxx  //create xxx branch
+git merge dev 
+git branch  //look up local branch
+git branch -a  //look up remote origin branch
+git stash 
+git stash list 
+git stash apply 
+git merge dev    
+git stash pop 
+git remote
+
+git clone git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux-2.6.git  //linux kernel(2.6)
+git pull  //get all remote storehouse to local storehouse
+git clone ssh://chenqianxin@192.168.20.4:29418/USV_MC
+
+rm -fr //force recursive
+cd -vxf xxx  //
+chmod 777 filename
+cat /pro/version
+cat /etc/issue
+apt-get update
+apt-get install xxx
+sudo apt-get -f install
+
+./configure  //generate makefile
+make menuconfig
+make
+make install
+make clean
+
+Kconfig -> Make menuconfig
+Make menuconfig -> .config
+.config -> Makefile
+
+/****************abbreviation*********************/
+.ko:kernel object
+apt:advanced packaging tool
+archives:
+TFTP:Trivial File Transfer Protocol
+NFS:Network File System
+ps:Process Status
+su:switch user
+pwd:print working directory
+passwd:password
+grep:Global Regular Expression Print
+EOF:End Of File
+Flattened Device Tree
+grep: get regular expression
+ARGc: argument counter 
+ARGv: argument vector
+sudo /etc/init.d/xinetd restart
+RPC：remote procedure call
+FIMC: Fully Interactive Mobile Camera
+FIMD: Fully Interactive Mobile Display
+SPL: second program loader
+MBR: Master Boot Record
+CP15: the system control coprocessor
+
+/****************beyond compare*******************/
+deb:
+sudo apt-get update
+sudo apt-get install gdebi
+sudo gdebi bcompare-3.3.13.18981_i386.deb
+sudo apt-get remove bcompare
+gz:
+tar zxvf bcompare-4.0.7.19761.tar.gz
+cd bcompare-4.0.7.19761
+sudo ./install.sh
+sudo /usr/lib/beyondcompare/uninstall.sh
+run:bcompare
+
+/****************tftp*********************/
+apt-get install tftp tftpd
+apt-get install xinetd
+tftp 127.0.0.1  //connect local tftp
+vi etc/eth0-setting
+/home/topeet/linus-simple/system/etc/eth0-setting
+ping 192.168.146.130
+tftp -g -l test1 -r test 192.168.146.129
+
+root=/dev/nfs rw nfsroot=192.168.1.102:/home/topeet/linus-simple/system ip=192.168.1.230:192.168.1.102:192.168.1.1:255.255.255.0:iTOP:eth0:off  rootfstype=ext4 init=/linuxrc console=ttySAC2,115200
+mount -t nfs localhost:/home/topeet/linus-simple /mnt
+/etc/init.d/nfs-kernel-server restart
+
+apt-get install uboot-mkimage
+u-boot-tools uboot-mkimage
+
+/***********make mini system**********/
+busybox->make menuconfig
+Build Options-¡·Cross Compiler prefix->arm-none-linux-gnueabi-
+Installation Options-¡·../system
+make
+make install
+mkdir dev etc lib mnt proc sys tmp var
+add files:
+cp /usr/local/arm/arm-2009q3/arm-none-linux-gnueabi/libc/lib/* ./
+mkdir lib lock log run tmp
+make_ext4fs -s -l 314572800 -a root -L linux system.img system
+
+1、使用dpkg --get-selections | grep linux查看内核的安装状况，凡是带image都是旧的内核
+2、使用uname -a 查看当前的内核版本
+3、一般当前版本之前的版本都可以删除，我自己习惯把当前版本的前一个版本保留下来
+4、删除的指令是 sudo apt-get remove 内核文件的名字 比如  linux-image-3.2.0-33-generic-pae 
+5、为确保卸载干净执行下  sudo apt-get clean 或者 sudo apt-get autoremove 
+
+/**************keyboard *******************/
+sudo vim /etc/default/keyboard
+KBOPTIONS="ctrl:nocaps"
+sudo dpkg-reconfigure keyboard-configuration
+
+/***************resource**************/
+Linux resource:
+http://linux.linuxidc.com/
+user:www.linuxidc.com
+password:www.linuxidc.com
+
+/***************uboot download**************/
+ftp://ftp.denx.de/pub/u-boot/
+https://sourceforge.net/project/u-boot
+
+/***************kernel download**************/
+3.0:
+git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable.git
+https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable.git
+https://kernel.googlesource.com/pub/scm/linux/kernel/git/stable/linux-stable.git
+
+/***************gcc download**************/
+https://launchpad.net/gcc-arm-embedded/+download
+https://www.mentor.com/embedded-software/downloads/scb-evaluation
+Mentor:http://www.mentor.com/embedded-software/sourcery-tools/sourcery-codebench/evaluations/
