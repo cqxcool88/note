@@ -1,0 +1,284 @@
+/* vim */
+set tabpagemax=15
+:tabnew
+:tabc
+:tabo  //shut other only this
+:tabp	//pward tab
+:tabn	//nex tab
+:tabs	//display all tab
+:tabfirst
+:tablast
+gt switch window
+:help tab-page-intro
+
+移动光标：
+词末: e
+行首: 0 | home
+行末: end
+行首非blank处: ^
+行末非blank处: $
+行末非blank处: n$
+%:移动到与制匹配的括号上去（），{}，[]，<>等
+移动到第n行上: nG
+到最后一行: G
+搜索查找：命令行：/字符串，？字符串；shift+*或者shift+#；n向下跳，N向上跳
+选择单词：viw
+选择光标单词后面部分：vw
+调到变量定义出：gd
+全局替换: %s/old/new?
+光标处移到顶部：zt
+光标处移到中部：zz
+光标处移到底部：zb
+
+切换窗口：ctrl+w
+选择文字：ctrl+shift+选择文字
+拷贝文字: y
+粘贴文字：p
+分割窗口：split
+打开文件：:e
+新建文件：:new
+新建标签：:tabe+文件名
+左右分屏：:vsp filename
+左右分屏：:vsplit
+上下分屏：:split
+取消操作：u -> undo
+重复操作：ctrl+r -> redo
+光标后插入：a
+行首插入：v + shift+i
+行头插入：shift+i
+多行注释：block模式（gvim:ctrl+p） - 选中行 - I - xx - 退出
+取消多行注释：block模式(vim:ctrl+v) - 选中注释 - d 
+补全向下选择：ctrl+n
+补全向上选择：ctrl+p
+设置tab: set ts=4 set expandtab（tabstop）
+设置左右移动位：set shiftwidth=4
+set tags=tags
+set autochdir
+set shiftwidth=4 
+colorscheme darkblue	
+set number
+set ts=4
+set cindent使用 C/C++ 语言的自动缩进方式  
+
+分页：:Te -> Texplorer
+下页：gt
+前页：gT
+选择页：{i}gt example:2gt
+察看分页：:tabs
+页面顶部:gg
+页面底部：G
+换页：ctrl+page up
+换页：ctrl+page down
+
+左边窗口：Ctrl+W h
+下边窗口：Ctrl+W j
+上边窗口：Ctrl+W k
+右边窗口：Ctrl+W l
+下个窗口：Ctrl+W w
+
+左移窗口：Ctrl+W H
+下移窗口：Ctrl+W J
+上移窗口：Ctrl+W K
+右移窗口：Ctrl+W L
+
+下分屏目录：:He（Hexplore）
+上分屏目录：:He! 
+左分屏目录：:Ve 
+右分屏目录：:Ve!
+
+可视化模式：
+复制一个单词：vey
+粘贴一个单词：vep
+复制整行：yy
+剪切整行：dd
+d$:删除游标所在处，到该行行尾的所有字符 
+d0:删除游标所在处 ，到该行行首的所有字符
+:%s/str1/str2/g  替换文本全局
+:s/str1/str2/g   替换当前行
+
+缩进：选中 shift+< 或者 ==
+n行缩进：n==
+全局缩进：gg=G
+
+折叠函数：
+zc 折叠当前行
+zo 打开当前折叠
+zr 打开
+zR 打开所有
+zm 关闭折叠
+zM 关闭所有
+zd 删除折叠
+zD 删除所有折叠
+set fdm=marker 
+搜索左花括号即/{;光标放在第一个{上按qazf%nq;按n@a(n为折叠函数数量)
+qcharacter：开始录制宏，character为a到z的任意字符；q：终止录制宏；@character：调用先前录制的宏zf为折叠命令，%为折叠范围即到匹配 } 内的整个函数体，n作用是跳到下一个 { 处。
+
+x        删除当前光标下的字符
+dw       删除光标之后的单词剩余部分。
+d$       删除光标之后的该行剩余部分。
+dd       删除当前行。
+
+c        功能和d相同，区别在于完成删除操作后进入INSERT MODE
+cc       也是删除当前行，然后进入INSERT MODE
+
+zR  打开所有折叠  
+zM  关闭所有折叠  
+zE  删除所有的折叠标签 
+zf  创建折叠，可以按照前面的方式进行折叠，也可以选中代码后进行折叠。   
+zF  在当前行创建折叠。当一开始就计划要折叠所写代码的时候，可以用该命令创建一对折叠符号，然后再往里面填写内容
+zd  删除光标下的折叠。  
+zD  删除光标下的折叠，以及嵌套的折叠。
+[z  到当前打开折叠的开始。如果已在开始处，移到包含这个折叠的折叠开始处。  
+]z  到当前打开折叠的结束。如果已在结束处，移到包含这个折叠的折叠结束处。  
+zj  把光标移动到下一个折叠的开始处。  
+zk  把光标移动到前一个折叠的结束处
+zo  打开光标下的折叠。  
+zO  打开光标下的折叠，以及嵌套的折叠。  
+zc  关闭光标下的折叠。  
+zC  关闭光标下的折叠，以及嵌套的折叠。  
+za  当光标在关闭折叠上时，打开之。在打开折叠上时，关闭之。  
+zA  和za类似，不过对当前折叠和其嵌套折叠都有效。
+
+无法保存：setlocal buftype=
+恢复：setlocal buftype=nofile
+vim中当打开一个c/c++文件有多个个函数时，可以考虑把所有函数体折叠起来，下面方法可以实现快速折叠：
+1.搜索 ‘{’ 左花括号，即 执行  /{<CR>，这时所有左花括号均高亮搜索出来了。
+2.把光标放在第一个函数的 { 上，然后按 qazf%nq
+3.估计大概有多少个函数，然后按  n@a( n为具体数字）。譬如函数个数大约有十几个，则可以按: 20@a
+这样就可以折叠全部函数了。注意折叠模式:
+
+qcharacter：开始录制宏，character为a到z的任意字符
+q：终止录制宏
+@character：调用先前录制的宏
+
+zf为折叠命令，%为折叠范围即到匹配 } 内的整个函数体，n作用是跳到下一个 { 处。
+
+
+%x 十六进制格式输出
+结构默认有对齐方式，如果不需要对齐可以在定义前面加__packed（在发送数据时比较有用）
+函数参数的值传递是单向的。
+在函数里修改结构体值，可以修改结构体值。
+结构体变量作为函数参数，修改后的结构体成员的不能返回到主调函数。
+结构体指针变量作为函数参数，修改后的结构体成员的能返回到主调函数。
+在函数里修改结构体值，只能修改一个结构体值。
+结构体指针变量作为函数参数，可以修改N个结构值为同一值。
+结构体指针变量和其它参数作为函数参数，可以N个结构值为不同的值。
+结构体地址加1,是在整个机构体（外部）地址后加1
+结构体成员地址加1，是结构体内部地址成员加1
+在主函数里printf可能会影响到整个程序。
+
+不要在中断里打印东西，会降低系统运行效率。
+
+单引号是字符的意思：‘A’，A就是一个字符
+双引号就是 字符串的意思：“abcd”就是一个字符串
+
+字符串初始化：
+char str[] = "test";
+char *str = "test";
+char *str;
+str = "test";
+int len = strlen(str);
+
+在函数参数格式不对时，可强制转换成需要的类型。
+指针：
+指针变量定义的格式，因为符号“*”处于数据类型和变量名之间，所以既可以将符号和数据类型结合起来看成“新的数据类型”；也可以把它与变量名结合起来看成是变量名。即：int*  p或者
+int  *p；在定义是看成int*  p,运用时p为指针变量，*p为指针变量指向的值.
+指针在定义时系统没有给指针变量分配地址空间，指针变量必须在赋值后才能使用；只能给指针变量赋值地址：int *p;p=(int*)0x4600或者int*p=(int*)0x4600或者int*p;p=&a或者int*p=&a;
+数值传递参考C程序设计指针章节笔记
+通过指针引用数组：int*p;p=&a[0]或者int*p=&p[0]或者int*p=a;
+
+（1）ESP：栈指针寄存器(extended stack pointer)，其内存放着一个指针，该指针永远指向系统栈最上面一个栈帧的栈顶。
+（2）EBP：基址指针寄存器(extended base pointer)，其内存放着一个指针，该指针永远指向系统栈最上面一个栈帧的底部。
+
+程序调试：
+遇到问题多转变思路，设置测试量，不同的测试量，根据实际运行情况来判断，不要随意占用系统资源。
+编程时要注意细小问题，比如说变量类型是否一致。
+
+/* usb */
+abb
+linux下usb设备驱动分类：音频设备、通讯设备、HID（人机接口）设备、显示设备
+储存设备、电源设备、打印设备、集线器设备。
+urb:usb request block usb设备驱动中用来描述与usb设备通讯所用的基本载体和核心数据结构。
+usb结构：主机控制器-urb-设备
+相应的驱动：主机控制器驱动《=》urb《=》具体设备驱动
+
+n51822
+sil2104
+霍尔传感器：
+可用于电机测速/位置检测等场合。
+有磁场切割就有信号输出 。
+灵敏度可调（精调）。
+
+ 1、栈区（stack）— 由编译器自动分配释放 ，存放函数的参数值，局部变量的值等。其操作方式类似于数据结构中的栈。
+ 2、堆区（heap） — 一般由程序员分配释放， 若程序员不释放，程序结束时可能由os回收 。注意它与数据结构中的堆是两回事，分配方式倒是类似于链表。
+ 3、全局区（静态区）（static）—，全局变量和静态变量的存储是放在一块的，初始化的全局变量和静态变量在一块区域， 未初始化的全局变量和未初始化的静态变量在相邻的另一块区域。 - 程序结束后有系统释放。
+ 4、文字常量区 —常量字符串就是放在这里的。 程序结束后由系统释放。
+ 5、程序代码区—存放函数体的二进制代码。
+
+guarantee:power and speed are guaranteed to be zero.
+amplitude:Hall sensor amplitude scale.
+lever:Remote lever is mounted on right side.
+magnet:Magnet sensor value is in range.
+polynomial:It is an 8 bit CRC using the generator polynomial.
+pad:an additional padding byte may be transmitted after the packet.
+spurious:ven if the bus switching caused a spurious start bit on the bus.
+explicitily:There is no mechanism for slaves to explicitily report a transmission error to the master
+slot:Transmission happens within time slots of 25ms duration
+parity:The data format is 19200 baud, 8 data bits, 1 stop bit, and no parity.
+
+MRS <reg>, <special_reg>; Read special register
+MSR <special_reg>, <reg>; write to special register
+
+隐藏网络:N(只能隐藏网络，不能隐藏线)
+隐藏丝印：shift+s
+Shift+S:切换单层显示和多层显示
+测量：Ctrl+M
+Shift+空格键:在交互布线的过程中，切换布线形状
+Q:在公制和英制之间切换。
+旋转：space
+视图配置：ctrl+d
+合适区域：v+f
+选择区域：v+a
+器件换层：L
+换层：*
+对齐：A
+选择：S
+板子形状：现画keepout层，然后从新定义板子形状。
+删除布线：工具 -> 取消布线
+设置原点：编辑 -> 原点
+走线形状：ctrl+shift+space
+设置规则：工具 -> 规则
+设置喜欢的过孔线宽：布线时table建
+取消布线：u+n
+高亮：ctrl+点击
+栅格：ctrl+g
+3D：shift+鼠标右键
+
+利用函数返回值（指针）功能可以减少全局变量的使用
+如：key_scan()和一个全局变量组成的按键检测
+int key_scan()返回按键状态，在需要按键状态的时候调用此函数即可。
+
+头文件的作用：
+1、通过头文件来调用库功能。在很多场合，源代码不便（或不准）向用户公布，只要向用户提供头文件和二进制的库即可。用户只需要按照头文件中的接口声明来调用库功能，而不必关心接口怎么实现的。编译器会从库中提取相应的代码。
+2、头文件能加强类型安全检查。如果某个接口被实现或被使用时，其方式与头文件中的声明不一致，编译器就会指出错误，这一简单的规则能大大减轻程序员调试、改错的负担。
+
+linux0.11:
+buffer.c里为什么要用双向链表不用数组或者单向链表？为什么要用hash散列表？
+答：1、数组是固定，而链表可以是不定长的，可以实现插入、删除等操作。双向链表比单向链表更容易实现插入、删除等操作。
+	2、hash散列表可以更快的查找满足同类的条件的目标。
+
+三轴捷联磁阻式数字磁罗盘：
+六轴陀螺仪：三轴陀螺仪和加速计。卡尔曼滤波数据融合。
+九轴陀螺仪：陀螺仪、加速度计、磁传感封装成一个器件，因为这三个传感器分别都是三轴的，累加起来称作九轴。角度的测量及计算主要依靠陀螺仪，另外加上磁传感的辅助来计算，
+三轴加速度，三轴角速度，三轴磁场。然后欧拉角加四元数数据融合。
+九轴是加速度计、陀螺仪和磁力计的集成，主要测量的是三轴的加速度（三个方向的倾角）、三轴的转动角速度和三个方向的磁力，常用的有MPU9255。
+
+1、嵌入式系统（ucos）应该使用递归调用函数吗？为什么？ 答：应该尽量避免，需考虑任务堆栈大小。
+2、什么是堆和栈？它们有什么区别？
+3、操作系统是怎么切换任务的？
+4、pcb差分信号线在不能同时满足等长和等距时，应该怎么取舍？
+5、dc-dc和ldo有什么区别？各自有什么优势？
+6、arm处理器有多少个寄存器？
+7、熟悉汇编吗？
+8、简述下计算机启动过程。
+9、函数指针和指针函数的区别？看*和谁结合， int* f(x，y)：指针函数，返回一个指针。int (*f) (int x)函数指针 
