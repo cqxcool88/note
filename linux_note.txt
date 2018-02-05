@@ -148,6 +148,13 @@ cat /proc/version
 /****************vim*********************/
 //should add in /etc/vim/vimrc
 set ts=4  //ts:tabstop
+set nu   //display line number
+syntax on  //highlight
+set autochdir
+set shiftwidth=4	//retract 4 tabs
+colorscheme desert	//color default set
+
+set nonu //cancel display line number
 set expandtab
 sudo apt-get install vim-gnome  //ubuntu system clipboard support
 ctrl+alt+t    //new terminal
@@ -156,8 +163,6 @@ vim xxx  //file name
 q!       //quit with not save
 w        //save without quit
 wq       //quit with save
-set nu   //display line number
-set nonu //cancel display line number
 q:       //enter command model
 u        //cancel last amend
 :reg     //register
@@ -199,7 +204,6 @@ s/old/new/g  //use new replace old,current line all match
 %s/old/new/  //use new replace old,all lines fist match
 进入vi后使用ctrl+x然后再ctrl+o来补全代码！！
 使用ctrl+n 或 ctrl+p直接进行代码补全（更方便）！！！
-syntax on  //highlight
 %s/old/new/g //use new replace old,current file all match
 
 nmap <c-v> "+gp  
