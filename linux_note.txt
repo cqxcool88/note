@@ -103,6 +103,19 @@ fdisk //report file system disk space usage  examp:sudo fdisk /dev/sdb
 df    //report file system disk space usage
 
 /****************kernel*********************/
+udo apt-get install openssh-client openssh-server
+sh服务启动：sudo /etc/init.d/ssh start
+ssh停止服务：sudo /etc/init.d/ssh stop
+ssh重启服务：sudo /etc/init.d/ssh restart
+P访问：
+ssh username@192.168.1.112 
+sh -l hyx 192.168.0.103
+udo gedit /etc/ssh/sshd_config
+"PermitRootLogin without-password"加一个"#"
+"PermitRootLogin yes"
+
+/****************kernel*********************/
+
 make zImage
 make mrproper  //fist time compiler
 make exynos4_deconfig  //arch/arm/configs
@@ -214,16 +227,16 @@ gt -x           //xpage
 :tabonly        //leave only this page 
 
 /**insert model**/
-"word"+ctrl+n     //complete the remaind words
-catl+p  //return
-Ctrl + X 和 Ctrl + D 宏定义补齐
-Ctrl + X 和 Ctrl + ] 是Tag 补齐
-Ctrl + X 和 Ctrl + F 是文件名 补齐
-Ctrl + X 和 Ctrl + I 也是关键词补齐，但是关键后会有个文件名，告诉你这个关键词在哪个文件中
-Ctrl + X 和 Ctrl +V 是表达式补齐
-Ctrl + X 和 Ctrl +L 这可以对整个行补齐
+"word"+ctrl+n          //complete the remaind words
+catl+p                 //return
+ctrl + x and ctrl + d  //define complete
+ctrl + x and ctrl + ]  //tag complete
+ctrl + x and ctrl + f  //file cpmplete
+ctrl + x and ctrl + i  //keyword complete
+ctrl + x and ctrl + v  //expression complete
+ctrl + x and ctrl + l  //line complete
 
-/**addon**/
+/****************addon******************/
 sudo apt-get install vim-addon-manager
 sudo apt-get install vim-scripts
 
@@ -368,6 +381,11 @@ git config --global user.email "xxx"
 git remote -v  //look up remote server address and name --verbose 
 git remote add origin https://github.com/tugenhua0707 	//establish local and remote connention
 git push origin master  //push local master to remote origin master
+git pull origin test
+git push origin test:test    //test as test branch
+git push origin test:master  //test as master branch
+git push origin :test 	     //delete the last test branch
+git diff
 
 git add xxx
 git diff xxx
@@ -387,10 +405,13 @@ git merge dev
 git stash pop 
 git remote
 
+git --version
+git clone https://github.com/tugenhua0707/testgit
 git clone git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux-2.6.git  //linux kernel(2.6)
 git pull  //get all remote storehouse to local storehouse
 git clone ssh://chenqianxin@192.168.20.4:29418/USV_MC
 
+cat xxx
 rm -fr //force recursive
 cd -vxf xxx  //
 chmod 777 filename
@@ -409,6 +430,10 @@ make clean
 Kconfig -> Make menuconfig
 Make menuconfig -> .config
 .config -> Makefile
+
+/* chmod */
+权限：0（没有权限）；4（读取权限）；5（4+1 | 读取+执行）；6（4+2 | 读取+写入）；7（4+2+1 | 读取+写入+执行）
+chmod -R  777  /xxx
 
 /****************abbreviation*********************/
 .ko:kernel object
